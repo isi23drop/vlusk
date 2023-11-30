@@ -38,10 +38,13 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
 
-    #from .main import main as main_blueprint
-    #app.register_blueprint(main_blueprint)
+    from . import blog
+    app.register_blueprint(blog.bp)
+    app.add_url_rule('/', endpoint='index')
 
-    #from .auth import auth as auth_blueprint
-    #app.register_blueprint(auth_blueprint)
+    from . import dashboard
+    app.register_blueprint(dashboard.bp)
+    #app.add_url_rule('/dashboard', endpoint='dashboard')
+
 
     return app
