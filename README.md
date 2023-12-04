@@ -1,9 +1,17 @@
 # flask-orm
-> backend with flask and sqlite3.
+> Fullstack Flask dashboard for data visualization. DevOps ready for cloud.
+
+Featuring:
+- backend/frontend: flask
+- visualization: plotly
+- database integration: SQLAlchemy ORM
+    - sqlite3 for session cache
+    - postgres for dataframe storage
+- microservices architecture
 
 Since it's common for backends to connect to a database, the software infrastructure of these underlying systems can be deployed in a lightweight virtualized manner, using OCI containers. The orchestration tool ```docker-compose``` is compatible with Podman and k8s to deploy multiple containers, and even thinking about tools like Docker Swarm, you can adapt the YAML to run in a single host but to be scalable to run distributed. What makes it possible are components such as __Podman Service__ and the kubernetes distro __k3s__.
 
-This repository attempts to deploy a simple proof-of-concept backend adopting a test driven development approach, seemingly scaling from single host mocking with unit tests to multi-node integration tests if needed.
+The logical infrastructure of this project attempts to deploy a simple proof-of-concept backend adopting a test driven development approach, seemingly scaling from single host mocking with unit tests to multi-node integration tests if needed, be it on-premise or cloud.
 
 ### Running in Standalone mode
 
@@ -11,9 +19,9 @@ Prepare the environment:
 
 ```sh
 ; git clone git@github.com:deomorxsy/florm.git
-; cd ./florm
 ; python3 -m venv venv
-; source ./venv/bin/activate
+; cd ./florm
+; source ../venv/bin/activate
 ; pip3 install --upgrade pip
 ; pip3 install -r ./requirements.txt
 
@@ -27,7 +35,7 @@ Now that all dependencies are installed, just run each process from a different 
 flask --app app init-db
 ```
 
-2.
+2. PS: now in flask 3.0 the FLASK_ENV is deprecated alongside the debug mode that goes back to the framework on the CLI call, hence the flag "--debug".
 ```sh
 flask --app app run --debug
 ```
