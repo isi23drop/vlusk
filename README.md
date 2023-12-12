@@ -1,26 +1,42 @@
-# flask-orm
-> Fullstack Flask dashboard for data visualization. DevOps ready for cloud.
+# vlusk-primer
+> Simple fullstack project monorepo for data visualization with Python/Flask and Node/Vue.js
 
 Featuring:
-- backend/frontend: flask
-- visualization: plotly
-- database integration: SQLAlchemy ORM
+- Backend:Python/Flask
+- Frontend: Node/Vue.js
+    - Build tooling: Vite
+- Visualization: vue-chartjs
+- Database ORM: SQLAlchemy
     - sqlite3 for session cache
     - postgres for dataframe storage
-- microservices architecture
 
 Since it's common for backends to connect to a database, the software infrastructure of these underlying systems can be deployed in a lightweight virtualized manner, using OCI containers. The orchestration tool ```docker-compose``` is compatible with Podman and k8s to deploy multiple containers, and even thinking about tools like Docker Swarm, you can adapt the YAML to run in a single host but to be scalable to run distributed. What makes it possible are components such as __Podman Service__ and the kubernetes distro __k3s__.
 
 The logical infrastructure of this project attempts to deploy a simple proof-of-concept backend adopting a test driven development approach, seemingly scaling from single host mocking with unit tests to multi-node integration tests if needed, be it on-premise or cloud.
 
-### Running in Standalone mode
-
-Prepare the environment:
 
 ```sh
 ; git clone git@github.com:deomorxsy/florm.git
 ; python3 -m venv venv
-; cd ./florm
+```
+
+# Frontend
+
+Scaffolding generated with create-vite@5.1.0:
+```sh
+; npm create vite@5.1.0 frontend/ -- --template vue-ts
+; npm install
+; npm run dev
+
+```
+# Backend
+### Running in Standalone mode
+
+Prepare the environment:
+
+
+```sh
+; cd ./florm/backend/
 ; source ../venv/bin/activate
 ; pip3 install --upgrade pip
 ; pip3 install -r ./requirements.txt
