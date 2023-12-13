@@ -11,14 +11,15 @@ sudo apt-get update
 sudo apt-get -y install postgresql
 
 # get oci container image for postgres
+# todo: debug password
 podman run -it -p=5432:5432 --name dbdrop -d \
     -e POSTGRES_USER=admin \
-    -e POSTGRES_PASSWORD= ${{ secrets.POSTGRES_PASSWORD }} \
+    -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
     docker.io/library/postgres:16.0
 
 # connect to the container with psql
 ## Create schema with Raw SQL script then populate the database
 for f in ../backend/migrations/*.sql;
 do
-    psql -U admin -d dbdrop -f "$f"
+    psql -h localhost -U admin -f "$f"
 done
