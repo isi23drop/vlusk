@@ -34,7 +34,7 @@ Scaffolding generated with create-vite@5.1.0:
 
 Run the container process with the database
 ```sh
-podman run -it -p=5432:5432 --name db -d \
+podman run -it -p=5432:5432 --name dbdrop -d \
     -e POSTGRES_USER=admin \
     -e POSTGRES_PASSWORD=Passw0rd \
     -v /mnt/ssd/dataStore/containers/database/pgad-pod/pgdata:/var/lib/postgresql/data:Z \
@@ -48,7 +48,7 @@ Connect psql to the process, create the schema and populate the database. The lo
 
 for f in *.sql;
 do
-    psql -U admin -d unidrop -f "$f"
+    psql -U admin -d dbdrop -f "$f"
 done
 ```
 

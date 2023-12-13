@@ -1,8 +1,8 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-
-class Config(object):
+#class Config(object):
+class Config:
     ROOT_PATH = basedir
     # below an example of a secret key. For the proof of concept,
     # this is used, but the best practice is to set environment
@@ -12,17 +12,6 @@ class Config(object):
         'postgresql://' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     STATIC_FOLDER = f"{os.getenv('APP_FOLDER')}/project/static"
-
-
-class prod_config(Config):
-    DEBUG = False
-    TESTING = False
-    #LOGIN_DISABLED = False
-
-
-class dev_config(Config):
-    DEBUG = True
-    TESTING = True
-    #LOGIN_DISABLED = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
