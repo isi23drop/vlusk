@@ -29,6 +29,30 @@ Scaffolding generated with create-vite@5.1.0:
 ; npm run dev
 
 ```
+# Database
+### Standalone container
+
+Run the container process with the database
+```sh
+podman run -it -p=5432:5432 --name db -d \
+    -e POSTGRES_USER=admin \
+    -e POSTGRES_PASSWORD=Passw0rd \
+    -v /mnt/ssd/dataStore/containers/database/pgad-pod/pgdata:/var/lib/postgresql/data:Z \
+    docker.io/library/postgres:16.0
+```
+
+Connect psql to the process, create the schema and populate the database. The loop below reads all files under the database directory in alphanumeric order, so you can always tell that the reading respects precedence.
+```sh
+# Create schema with Raw SQL script then populate the database
+#psql -U admin -d database_name -f=file.sql
+
+for f in *.sql;
+do
+    psql -U admin -d unidrop -f "$f"
+done
+```
+
+
 # Backend
 ### Running in Standalone mode
 
@@ -36,7 +60,7 @@ Prepare the environment:
 
 
 ```sh
-; cd ./florm/backend/
+; cd ./vlusk/backend/
 ; source ../venv/bin/activate
 ; pip3 install --upgrade pip
 ; pip3 install -r ./requirements.txt

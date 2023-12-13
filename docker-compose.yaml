@@ -1,11 +1,14 @@
 version: "3.7"
 services:
-  myapp:
-    image: quay.io/user/myimage:latest
-    volumes:
-      - ./html:/var/www/html
-      - myapp_vol:/vol
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+  adminer:
+    image: adminer
+    restart: always
     ports:
-      - 8080:80
+      - 8080:8080
 volumes:
   myapp_vol: {}
