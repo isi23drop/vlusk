@@ -6,6 +6,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_URL')
 db = SQLAlchemy(app)
 
+
 class User(db.Model):
     __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
@@ -18,7 +19,13 @@ def json(self):
             'email': self.email
             }
 
-db.create_all()
+
+#def create_app():
+#    with app.app_context():
+#        # init_db()
+#        db.create_all()
+#    return app
+
 
 # create a test route
 @app.route('/test', methods=['GET'])
