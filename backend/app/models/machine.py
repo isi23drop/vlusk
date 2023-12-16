@@ -2,6 +2,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 
+#db = SQLAlchemy(app)
 db = SQLAlchemy()
 
 class Alumni(db.model):
@@ -12,6 +13,12 @@ class Alumni(db.model):
     cpf = db.Column(db.String(14), nullable=False)
     arg_class = db.Column(db.DECIMAL(5, 2), nullable=False)
     ano_entrada = db.Column(db.INT, nullable=True)
+
+    def json(self):
+return {'id': self.id,
+            'nome': self.nome,
+            'cpf': self.cpf
+            }
 
     def __repr__(self):
         return '<machineid %r>' % self.machineid
@@ -28,6 +35,11 @@ class Lecture(db.model):
     credito = db.Column(db.Integer, nullable=False)
     tipo = db.Column(db.Integer, nullable=False)
 
+    def json(self):
+        return {'id': self.id,
+            'codigo': self.codigo,
+            'nome': self.nome
+        }
     def __repr__(self):
         return '<machineid %r>' % self.machineid
 
@@ -46,6 +58,13 @@ class History(db.model):
     # PROFESSOR
     aluno = relationship("Alumni")
     disciplina = relationship("Lecture")
+
+    def json(self):
+        return {'id': self.id_aluno,
+            'id_disciplina': self.id_disciplina,
+            'ano': self.ano,
+            'semestre': self.semestre
+        }
 
     def __repr__(self):
         return '<machineid %r>' % self.machineid

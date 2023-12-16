@@ -1,6 +1,6 @@
 from flask import jsonify
 from models.machine import db, Alumni, Lecture, History
-#from services.user_service import insert_logic, create_logic
+from services.user_service import insert_logic, create_logic
 
 def index(table):
     return jsonify({'status': 'OK',
@@ -8,7 +8,6 @@ def index(table):
                     'localhost:5000/machines/insert': f'insert table in postgres database{table}'})
 
 def create():
-
     create_logic()
 
 def insert():

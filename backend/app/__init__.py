@@ -1,6 +1,6 @@
 from os import environ
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy
 from config import Config
 from app.app import db as app_db
 
