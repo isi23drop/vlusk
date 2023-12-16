@@ -61,7 +61,9 @@ import { ref } from 'vue'
         </b-form>
       </div>
         </b-col>
-        <b-col sm="7"></b-col>
+        <b-col sm="7">
+            <img src="../assets/login.svg" class="img-login"/>
+        </b-col>
     </b-row>
 </template>
 
