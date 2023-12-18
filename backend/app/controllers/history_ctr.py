@@ -1,6 +1,6 @@
 from flask import jsonify
 from app.models.machine import db, Alumni, Lecture, History
-from app.services.history import get_all_hist, get_history, update_history, delete_history
+from app.services.history import get_all_hist, get_term, update_history, delete_history
 
 def index(table):
     return jsonify({'status': 'OK',
@@ -12,8 +12,8 @@ def get_all_hist_ctr():
     get_all_hist()
 
 
-def get_history_ctr(id):
-    get_history()
+def get_hist_term_ctr(id):
+    get_term()
 
 
 def update_ctr(id):

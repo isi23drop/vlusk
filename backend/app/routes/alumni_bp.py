@@ -1,5 +1,5 @@
 from flask import Blueprint
-from controllers.alumni_ctr import index, get_all_ctr, get_user_ctr, update_ctr, delete_ctr
+from app.controllers.alumni_ctr import index, get_all_ctr, get_user_ctr, update_ctr, delete_ctr
 
 blueprint = Blueprint('blueprint', __name__)
 

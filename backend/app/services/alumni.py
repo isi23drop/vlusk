@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request, jsonify, make_response
 #from app.app import app, db
 #from app import app
-from models.machine import Alumni, db
+from app.models.machine import Alumni, db
 
 db = SQLAlchemy()
 

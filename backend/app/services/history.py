@@ -1,10 +1,12 @@
+from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request, jsonify, make_response
-from app.app import app, db
-from models.machine import History
+#from app.app import app, db
+from app.models.machine import History
 
+db = SQLAlchemy()
 
 # get all history
-@app.route('/history', methods=['GET'])
+#@app.route('/history', methods=['GET'])
 def get_all_hist():
     try:
         history = History.query.all()
@@ -16,7 +18,7 @@ def get_all_hist():
 #
 # get history by id (terms)
 #
-@app.route('/history/<int:id>', methods=['GET'])
+#@app.route('/history/<int:id>', methods=['GET'])
 def get_term(id):
     # each user has a history. For the full history, each id are terms.
     try:
@@ -34,7 +36,7 @@ def get_term(id):
             ), 500)
 
 # update history
-@app.route('/history/<int:id>', methods=['PUT'])
+#@app.route('/history/<int:id>', methods=['PUT'])
 def update_history(id):
     try:
         history_term = History.query.filter_by(id=id).first()
@@ -53,7 +55,7 @@ def update_history(id):
         return make_response(jsonify({'message': 'error updating history term'}), 50)
 
 # delete history term
-@app.route('/history/<int:id>', methods=['DELETE'])
+#@app.route('/history/<int:id>', methods=['DELETE'])
 def delete_history(id):
     try:
         history_term = History.query.filter_by(id=id).first()
