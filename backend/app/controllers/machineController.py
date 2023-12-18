@@ -1,6 +1,6 @@
 from flask import jsonify
-from models.machine import db, Alumni, Lecture, History
-from services.user_service import insert_logic, create_logic
+from app.models.machine import db, Alumni, Lecture, History
+from app.services.user_service import insert_logic, create_logic
 
 def index(table):
     return jsonify({'status': 'OK',

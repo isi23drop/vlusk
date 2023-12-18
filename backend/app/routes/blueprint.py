@@ -1,5 +1,5 @@
 from flask import Blueprint
-from controllers.machineController import index, create, insert
+from app.controllers.machineController import index, create, insert
 
 blueprint = Blueprint('blueprint', __name__)
 

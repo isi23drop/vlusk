@@ -3,3 +3,4 @@ Flask-SQLAlchemy==3.1.1
 psycopg==3.1.14
 psycopg2==2.9.9
 flask_migrate==4.0.5
+flask_login==0.6.3

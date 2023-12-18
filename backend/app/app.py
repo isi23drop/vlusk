@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from os import environ
 
 from flask_migrate import Migrate
-from routes.blueprint import blueprint
+from app.routes import blueprint
 from models.machine import db
 
 app = Flask(__name__)
