@@ -1,10 +1,10 @@
 from flask import Flask, request, jsonify, make_response
-from app.app import app, db
-from models.machine import Lecture
+#from app.app import app, db
+from app.models.machine import Lecture
 
 
 # get all lectures
-@app.route('/lectures', methods=['GET'])
+#@app.route('/lectures', methods=['GET'])
 def get_all_lectures():
     try:
         lectures = Lecture.query.all()
@@ -16,7 +16,7 @@ def get_all_lectures():
 #
 # get lecture by id
 #
-@app.route('/lectures/<int:id>', methods=['GET'])
+#@app.route('/lectures/<int:id>', methods=['GET'])
 def get_lecture(id):
     try:
         lecture = Lecture.query.filter_by(id=id).first()
@@ -27,7 +27,7 @@ def get_lecture(id):
         return make_response(jsonify({'message': 'error getting lecture'}), 500)
 
 # update Lecture
-@app.route('/lectures/<int:id>', methods=['PUT'])
+#@app.route('/lectures/<int:id>', methods=['PUT'])
 def update_lecture(id):
     try:
         lecture = Lecture.query.filter_by(id=id).first()
@@ -43,7 +43,7 @@ def update_lecture(id):
         return make_response(jsonify({'message': 'error updating lecture'}), 50)
 
 # delete Lecture
-@app.route('/lectures/<int:id>', methods=['DELETE'])
+#@app.route('/lectures/<int:id>', methods=['DELETE'])
 def delete_lecture(id):
     try:
         lecture = Lecture.query.filter_by(id=id).first()

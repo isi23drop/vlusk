@@ -1,10 +1,13 @@
+from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request, jsonify, make_response
-from app.app import app, db
-from models.machine import Alumni
+#from app.app import app, db
+#from app import app
+from models.machine import Alumni, db
 
+db = SQLAlchemy()
 
 # get all alumni
-@app.route('/alumni', methods=['GET'])
+#@app.route('/alumni', methods=['GET'])
 def get_all_alumni():
     try:
         alumni = Alumni.query.all()
@@ -16,7 +19,7 @@ def get_all_alumni():
 #
 # get alumni by id
 #
-@app.route('/alumni<int:id>', methods=['GET'])
+#@app.route('/alumni<int:id>', methods=['GET'])
 def get_alumni(id):
     try:
         alumni = Alumni.query.filter_by(id=id).first()
@@ -27,7 +30,7 @@ def get_alumni(id):
         return make_response(jsonify({'message': 'error getting alumni'}), 500)
 
 # update alumni
-@app.route('/alumni/<int:id>', methods=['PUT'])
+#@app.route('/alumni/<int:id>', methods=['PUT'])
 def update_alumni(id):
     try:
         alumni = Alumni.query.filter_by(id=id).first()
@@ -42,7 +45,7 @@ def update_alumni(id):
         return make_response(jsonify({'message': 'error updating user'}), 50)
 
 # delete alumni
-@app.route('/alumni/<int:id>', methods=['DELETE'])
+#@app.route('/alumni/<int:id>', methods=['DELETE'])
 def delete_alumni(id):
     try:
         alumni = Alumni.query.filter_by(id=id).first()

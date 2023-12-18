@@ -1,8 +1,9 @@
 from flask import Blueprint
-from app.controllers.machineController import index, create, insert
+from app.controllers.history_ctr import get_all_hist_ctr, get_history_ctr, update_ctr, delete_ctr
 
 blueprint = Blueprint('blueprint', __name__)
 
-blueprint.route('/', methods=['GET'])(index)
-blueprint.route('/create', methods=['GET'])(create)
-blueprint.route('/insert', methods=['GET'])(insert)
+blueprint.route('/history', methods=['GET'])(get_all_hist_ctr)
+blueprint.route('/history/<int:id>', methods=['GET'])(get_history_ctr)
+blueprint.route('/history/<int:id>', methods=['PUT'])(update_ctr)
+blueprint.route('/history/<int:id>', methods=['DELETE'])(delete_ctr)

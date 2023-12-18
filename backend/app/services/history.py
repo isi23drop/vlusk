@@ -4,7 +4,7 @@ from models.machine import History
 
 
 # get all history
-@app.route('/history/all', methods=['GET'])
+@app.route('/history', methods=['GET'])
 def get_all_hist():
     try:
         history = History.query.all()

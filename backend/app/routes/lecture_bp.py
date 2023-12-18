@@ -1,5 +1,5 @@
 from flask import Blueprint
-from app.controllers.lecture_ctr import get_all_lec_ctr, get_lec_ctr, update_ctr, delete_ctr
+from controllers.lecture_ctr import get_all_lec_ctr, get_lec_ctr, update_ctr, delete_ctr
 
 blueprint = Blueprint('blueprint', __name__)
 

@@ -1,7 +1,7 @@
 from flask_sqlalchemy import create_engine
 from flask_sqlalchemy.sql import text
 import json
-from models.machine import Alumni, Lecture, History, db
+from app.models.machine import Alumni, Lecture, History, db
 from os import environ
 
 
