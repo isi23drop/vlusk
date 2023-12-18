@@ -3,53 +3,65 @@ from app.app import app, db
 from models.machine import History
 
 
-# create a User
-@app.route('/history/create', methods=['GET'])
-def get_users():
+# get all history
+@app.route('/history/all', methods=['GET'])
+def get_all_hist():
     try:
-        users = History.query.all()
+        history = History.query.all()
         # returns a jsonified function inside a list comprehension lambda lingo
-        return make_response(jsonify([user.json() for user in users]), 200)
+        return make_response(jsonify([item.json() for item in history]), 200)
     except Exception as e:
         return make_response(jsonify({'message': 'error getting users'}), 500)
 
 #
-# get user by id
+# get history by id (terms)
 #
-@app.route('/history<int:id>', methods=['GET'])
-def get_user(id):
+@app.route('/history/<int:id>', methods=['GET'])
+def get_term(id):
+    # each user has a history. For the full history, each id are terms.
     try:
-        userHist_id = History.query.filter_by(id=id).first()
-        if userHist_id:
-            return make_response(jsonify({'user': user.json()}), 200)
-        return make_response(jsonify({'message': 'user id not found'}), 404)
+        history_term = History.query.filter_by(id=id).first()
+        if history_term:
+            return make_response(jsonify(
+                {f'term {id} for the user history:': history_term.json()}
+                ), 200)
+        return make_response(jsonify(
+            {'message': 'history term id not found'}
+            ), 404)
     except Exception as e:
-        return make_response(jsonify({'message': 'error getting user'}), 500)
+        return make_response(jsonify(
+            {'message': 'error getting history term id'}
+            ), 500)
 
-# update User
+# update history
 @app.route('/history/<int:id>', methods=['PUT'])
-def update_user(id):
+def update_history(id):
     try:
-        userHist_id = History.query.filter_by(id=id).first()
-        if userHist_id:
+        history_term = History.query.filter_by(id=id).first()
+        if history_term:
             data = request.get_json()
-            userHist_id.username = data['username']
-            userHist_id.email = data['email']
+            history_term.username = data['username']
+            history_term.email = data['email']
             db.session.commit()
-            return make_response(jsonify({'message': 'user history updated'}), 200)
-        return make_response(jsonify({'message': 'user not found'}), 404)
+            return make_response(jsonify(
+                {'message': 'history term by id updated'}
+                ), 200)
+        return make_response(jsonify(
+            {'message': 'history term by id not found'}
+            ), 404)
     except Exception as e:
-        return make_response(jsonify({'message': 'error updating user'}), 50)
+        return make_response(jsonify({'message': 'error updating history term'}), 50)
 
-# delete User
+# delete history term
 @app.route('/history/<int:id>', methods=['DELETE'])
-def delete_user(id):
+def delete_history(id):
     try:
-        user_history = History.query.filter_by(id=id).first()
-        if user_history:
-            db.session.delete(user_history)
+        history_term = History.query.filter_by(id=id).first()
+        # check for history primary keys
+        if history_term:
+            db.session.delete(history_term)
             db.session.commit()
-            return make_response(jsonify({'message': 'user history deleted'}), 200)
-        return make_response(jsonify({'message': 'user history not found'}), 404)
+            return make_response(jsonify({'message': 'history term deleted'}), 200)
+        return make_response(jsonify({'message': 'history term not found'}), 404)
     except Exception as e:
-        return make_response(jsonify({'message': 'error deleting user history'}), 500)
+        return make_response(jsonify({'message': 'error deleting history term'}), 500)

@@ -15,11 +15,11 @@ def create_logic():
         return 'TABLES NOT CREATED'
 
 def insert_logic():
-    data =
+    #data =
 
     engine = create_engine(environ.get('DB_URL'))
     with engine.connect() as pgconn:
-        for file in
+        #for file in
         file = open('./migrations/')
 
 

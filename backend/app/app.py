@@ -3,7 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from os import environ
 
 from flask_migrate import Migrate
+# routes
 from app.routes import blueprint
+from app.routes.alumni_bp import blueprint as alumni_bp
+from app.routes.lecture_bp import blueprint as lecture_bp
+from app.routes.history_bp import blueprint as history_bp
+# db
 from models.machine import db
 
 app = Flask(__name__)
@@ -22,8 +27,14 @@ def create_app():
 # create app
 app = create_app()
 
-# register blueprint
+# register blueprints
 app.register_blueprint(blueprint, url_prefix='/machines')
+app.register_blueprint(alumni_bp, url_prefix='/alumni')
+app.register_blueprint(lecture_bp, url_prefix='/lectures')
+app.register_blueprint(history_bp, url_prefix='/history')
+
+
+# migration code
 migrate = Migrate(app, db)
 
 if __name__ == '__main__':
