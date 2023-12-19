@@ -1,18 +1,20 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+from .. import create_app
 
-
+app = create_app()
 db = SQLAlchemy()
+dbnnit = db.init_app(app)
 
-class Alumni(db.Model):
+class Alumni(dbnnit.Model):
     __tablename__ = 'aluno'
 
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
-    cpf = db.Column(db.String(14), nullable=False)
-    arg_class = db.Column(db.DECIMAL(5, 2), nullable=False)
-    ano_entrada = db.Column(db.INT, nullable=True)
+    id = dbnnit.nit.Column(dbnnit.nit.Integer, primary_key=True)
+    nome = dbnnit.nit.Column(dbnnit.nit.String(100), nullable=False)
+    cpf = dbnnit.nit.Column(dbnnit.nit.String(14), nullable=False)
+    arg_class = dbnnit.nit.Column(dbnnit.nit.DECIMAL(5, 2), nullable=False)
+    ano_entrada = dbnnit.nit.Column(dbnnit.nit.INT, nullable=True)
 
     def json(self):
         return {'id': self.id,
@@ -25,15 +27,15 @@ class Alumni(db.Model):
 
 
 
-class Lecture(db.Model):
+class Lecture(dbnnit.Model):
     __tablename__ = 'disciplina'
 
-    id = db.Column(db.Integer, primary_key=True)
-    codigo = db.Column(db.String(8), unique=True, nullable=False)
-    nome = db.Column(db.String(100), nullable=False)
-    carga_horaria = db.Column(db.Integer, nullable=False)
-    credito = db.Column(db.Integer, nullable=False)
-    tipo = db.Column(db.Integer, nullable=False)
+    id = dbnnit.nit.Column(dbnnit.Integer, primary_key=True)
+    codigo = dbnnit.Column(dbnnit.String(8), unique=True, nullable=False)
+    nome = dbnnit.Column(dbnnit.String(100), nullable=False)
+    carga_horaria = dbnnit.Column(dbnnit.Integer, nullable=False)
+    credito = dbnnit.Column(dbnnit.Integer, nullable=False)
+    tipo = dbnnit.Column(dbnnit.Integer, nullable=False)
 
     def json(self):
         return {'id': self.id,
@@ -45,19 +47,19 @@ class Lecture(db.Model):
 
 
 
-class History(db.Model):
+class History(dbnnit.Model):
     __tablename__ = 'historico'
 
-    id_aluno = db.Column(db.Integer, nullable=False, primary_key=True)
-    id_disciplina = db.Column(db.Integer, nullable=False, primary_key=True)
-    status = db.Column(db.Integer, nullable=False)
-    ano = db.Column(db.Integer, nullable = False, primary_key=True)
-    semestre = db.Column(db.Integer, nullable = False, primary_key=True)
-    nota = db.Column(db.DECIMAL(5,2), nullable=False)
+    id_aluno = dbnnit.Column(dbnnit.Integer, nullable=False, primary_key=True)
+    id_disciplina = dbnnit.Column(dbnnit.Integer, nullable=False, primary_key=True)
+    status = dbnnit.Column(dbnnit.Integer, nullable=False)
+    ano = dbnnit.Column(dbnnit.Integer, nullable = False, primary_key=True)
+    semestre = dbnnit.Column(dbnnit.Integer, nullable = False, primary_key=True)
+    nota = dbnnit.Column(dbnnit.DECIMAL(5,2), nullable=False)
 
     # PROFESSOR
-    aluno = db.relationship("Alumni")
-    disciplina = db.relationship("Lecture")
+    aluno = dbnnit.relationship("Alumni")
+    disciplina = dbnnit.relationship("Lecture")
 
     def json(self):
         return {'id': self.id_aluno,

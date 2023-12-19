@@ -1,5 +1,5 @@
 from flask import jsonify
-from app.models.machine import db, Alumni, Lecture, History
+#from app.models.machine import Alumni
 from app.services.alumni import get_all_alumni, get_alumni, update_alumni, delete_alumni
 
 def index(table):
@@ -12,16 +12,16 @@ def get_all_ctr():
     get_all_alumni()
 
 
-def get_user_ctr(id):
-    get_alumni()
+def get_user_ctr(Alumni, id):
+    get_alumni(Alumni, id)
 
 
-def update_ctr(id):
-    update_alumni(id)
+def update_ctr(Alumni, id):
+    update_alumni(Alumni, id)
 
 
-def delete_ctr(id):
-    delete_alumni(id)
+def delete_ctr(Alumni, id):
+    delete_alumni(Alumni, id)
 
 
 

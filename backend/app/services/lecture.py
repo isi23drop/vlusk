@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, make_response
 #from app.app import app, db
-from app.models.machine import Lecture
+#from app.models.machine import Lecture
 
 
 # get all lectures

@@ -1,13 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request, jsonify, make_response
 #from app.app import app, db
-from app.models.machine import History
+#from app.models.machine import History
 
 db = SQLAlchemy()
 
 # get all history
 #@app.route('/history', methods=['GET'])
-def get_all_hist():
+def get_all_hist(History):
     try:
         history = History.query.all()
         # returns a jsonified function inside a list comprehension lambda lingo
@@ -19,7 +19,7 @@ def get_all_hist():
 # get history by id (terms)
 #
 #@app.route('/history/<int:id>', methods=['GET'])
-def get_term(id):
+def get_term(History, id):
     # each user has a history. For the full history, each id are terms.
     try:
         history_term = History.query.filter_by(id=id).first()
@@ -37,7 +37,7 @@ def get_term(id):
 
 # update history
 #@app.route('/history/<int:id>', methods=['PUT'])
-def update_history(id):
+def update_history(History, id):
     try:
         history_term = History.query.filter_by(id=id).first()
         if history_term:
@@ -56,7 +56,7 @@ def update_history(id):
 
 # delete history term
 #@app.route('/history/<int:id>', methods=['DELETE'])
-def delete_history(id):
+def delete_history(History, id):
     try:
         history_term = History.query.filter_by(id=id).first()
         # check for history primary keys

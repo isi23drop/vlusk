@@ -2,13 +2,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request, jsonify, make_response
 #from app.app import app, db
 #from app import app
-from app.models.machine import Alumni, db
+#from app.models.machine import Alumni
 
-db = SQLAlchemy()
+#db = SQLAlchemy()
 
 # get all alumni
 #@app.route('/alumni', methods=['GET'])
-def get_all_alumni():
+def get_all_alumni(Alumni, id):
     try:
         alumni = Alumni.query.all()
         # returns a jsonified function inside a list comprehension lambda lingo
@@ -20,7 +20,7 @@ def get_all_alumni():
 # get alumni by id
 #
 #@app.route('/alumni<int:id>', methods=['GET'])
-def get_alumni(id):
+def get_alumni(Alumni, id):
     try:
         alumni = Alumni.query.filter_by(id=id).first()
         if alumni:
@@ -31,7 +31,7 @@ def get_alumni(id):
 
 # update alumni
 #@app.route('/alumni/<int:id>', methods=['PUT'])
-def update_alumni(id):
+def update_alumni(Alumni, id):
     try:
         alumni = Alumni.query.filter_by(id=id).first()
         if alumni:
@@ -46,7 +46,7 @@ def update_alumni(id):
 
 # delete alumni
 #@app.route('/alumni/<int:id>', methods=['DELETE'])
-def delete_alumni(id):
+def delete_alumni(Alumni, id):
     try:
         alumni = Alumni.query.filter_by(id=id).first()
         if alumni:
