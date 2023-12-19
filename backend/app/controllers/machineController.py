@@ -1,5 +1,5 @@
 from flask import jsonify
-from app.models.machine import db, Alumni, Lecture, History
+#from app.models.machine import db, Alumni, Lecture, History
 #from app.services.user_service import insert_logic, create_logic
 
 

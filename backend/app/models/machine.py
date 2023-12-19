@@ -1,18 +1,5 @@
-#from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_sqlalchemy import SQLAlchemy
-#from app import create_app
 from app.database import db
 # db
-#from app.database import db, relationship
-
-#app = create_app()
-#db = SQLAlchemy()
-#dbnnit = db.init_app(app)
-#dbnnit = create_app.db
-
-
-#dbnnit = db.Model
 dbnnit = db
 
 
@@ -33,7 +20,7 @@ class Alumni(dbnnit.Model):
             }
 
     def __repr__(self):
-        return '<machineid %r>' % self.machineid
+        return f'<Alumni {self.nome}, cpf {self.cpf}'
 
 
 

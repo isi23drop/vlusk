@@ -1,7 +1,7 @@
 from flask import Blueprint
 from app.controllers.history_ctr import get_all_hist_ctr, get_hist_term_ctr, update_ctr, delete_ctr
 
-from app.models.machine import History
+#from app.models.machine import History
 
 blueprint = Blueprint('history', __name__)
 

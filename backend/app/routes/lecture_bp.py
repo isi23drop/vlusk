@@ -1,6 +1,6 @@
 from flask import Blueprint
 from app.controllers.lecture_ctr import get_all_lec_ctr, get_lec_ctr, update_ctr, delete_ctr
-from app.models.machine import Lecture
+#from app.models.machine import Lecture
 
 blueprint = Blueprint('lectures', __name__)
 
