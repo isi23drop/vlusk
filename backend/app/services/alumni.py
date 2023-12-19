@@ -1,13 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request, jsonify, make_response
-#from app.app import app, db
-#from app import app
-#from app.models.machine import Alumni
-
-#db = SQLAlchemy()
 
 # get all alumni
-#@app.route('/alumni', methods=['GET'])
 def get_all_alumni(Alumni, id):
     try:
         alumni = Alumni.query.all()
@@ -18,8 +12,6 @@ def get_all_alumni(Alumni, id):
 
 #
 # get alumni by id
-#
-#@app.route('/alumni<int:id>', methods=['GET'])
 def get_alumni(Alumni, id):
     try:
         alumni = Alumni.query.filter_by(id=id).first()
@@ -30,7 +22,6 @@ def get_alumni(Alumni, id):
         return make_response(jsonify({'message': 'error getting alumni'}), 500)
 
 # update alumni
-#@app.route('/alumni/<int:id>', methods=['PUT'])
 def update_alumni(Alumni, id):
     try:
         alumni = Alumni.query.filter_by(id=id).first()
@@ -45,7 +36,6 @@ def update_alumni(Alumni, id):
         return make_response(jsonify({'message': 'error updating user'}), 50)
 
 # delete alumni
-#@app.route('/alumni/<int:id>', methods=['DELETE'])
 def delete_alumni(Alumni, id):
     try:
         alumni = Alumni.query.filter_by(id=id).first()

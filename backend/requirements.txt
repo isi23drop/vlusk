@@ -4,3 +4,5 @@ psycopg==3.1.14
 psycopg2==2.9.9
 flask_migrate==4.0.5
 flask_login==0.6.3
+pylint==3.0.3
+environs==10.0.0

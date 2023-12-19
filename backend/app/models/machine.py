@@ -1,20 +1,30 @@
-from flask_login import UserMixin
+#from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from .. import create_app
+#from app import create_app
+from app.database import db
+# db
+#from app.database import db, relationship
 
-app = create_app()
-db = SQLAlchemy()
-dbnnit = db.init_app(app)
+#app = create_app()
+#db = SQLAlchemy()
+#dbnnit = db.init_app(app)
+#dbnnit = create_app.db
+
+
+#dbnnit = db.Model
+dbnnit = db
+
 
 class Alumni(dbnnit.Model):
     __tablename__ = 'aluno'
 
-    id = dbnnit.nit.Column(dbnnit.nit.Integer, primary_key=True)
-    nome = dbnnit.nit.Column(dbnnit.nit.String(100), nullable=False)
-    cpf = dbnnit.nit.Column(dbnnit.nit.String(14), nullable=False)
-    arg_class = dbnnit.nit.Column(dbnnit.nit.DECIMAL(5, 2), nullable=False)
-    ano_entrada = dbnnit.nit.Column(dbnnit.nit.INT, nullable=True)
+
+    id = dbnnit.Column(dbnnit.Integer, primary_key=True)
+    nome = dbnnit.Column(dbnnit.String(100), nullable=False)
+    cpf = dbnnit.Column(dbnnit.String(14), nullable=False)
+    arg_class = dbnnit.Column(dbnnit.DECIMAL(5, 2), nullable=False)
+    ano_entrada = dbnnit.Column(dbnnit.INT, nullable=True)
 
     def json(self):
         return {'id': self.id,
@@ -30,7 +40,7 @@ class Alumni(dbnnit.Model):
 class Lecture(dbnnit.Model):
     __tablename__ = 'disciplina'
 
-    id = dbnnit.nit.Column(dbnnit.Integer, primary_key=True)
+    id = dbnnit.Column(dbnnit.Integer, primary_key=True)
     codigo = dbnnit.Column(dbnnit.String(8), unique=True, nullable=False)
     nome = dbnnit.Column(dbnnit.String(100), nullable=False)
     carga_horaria = dbnnit.Column(dbnnit.Integer, nullable=False)
