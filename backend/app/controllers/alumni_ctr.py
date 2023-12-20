@@ -1,6 +1,7 @@
 from flask import jsonify
-#from app.models.machine import Alumni as aluno
+from app.models.machine import Alumni
 from app.services.alumni import get_all_alumni, get_alumni, update_alumni, delete_alumni
+
 
 def index(table):
     return jsonify({'status': 'OK',
@@ -8,9 +9,9 @@ def index(table):
                     'localhost:5000/machines/insert': f'insert table in postgres database{table}'})
 
 
-def get_all_ctr(aluno):
+def get_all_ctr():
     print('in alumni_ctr')
-    get_all_alumni(aluno)
+    get_all_alumni(Alumni)
 
 
 def get_user_ctr():

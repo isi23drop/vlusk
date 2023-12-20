@@ -1,17 +1,16 @@
-from app.database import db
+from app.database import db, Column, relationship
 # db
-dbnnit = db
 
 
-class Alumni(dbnnit.Model):
+# class Alumni(db):
+class Alumni(db.Model):
     __tablename__ = 'aluno'
 
-
-    id = dbnnit.Column(dbnnit.Integer, primary_key=True)
-    nome = dbnnit.Column(dbnnit.String(100), nullable=False)
-    cpf = dbnnit.Column(dbnnit.String(14), nullable=False)
-    arg_class = dbnnit.Column(dbnnit.DECIMAL(5, 2), nullable=False)
-    ano_entrada = dbnnit.Column(dbnnit.INT, nullable=True)
+    id = Column(db.Integer, primary_key=True)
+    nome = Column(db.String(100), nullable=False)
+    cpf = Column(db.String(14), nullable=False)
+    arg_class = Column(db.DECIMAL(5, 2), nullable=False)
+    ano_entrada = Column(db.INT, nullable=True)
 
     def json(self):
         return {'id': self.id,
@@ -24,15 +23,15 @@ class Alumni(dbnnit.Model):
 
 
 
-class Lecture(dbnnit.Model):
+class Lecture(db.Model):
     __tablename__ = 'disciplina'
 
-    id = dbnnit.Column(dbnnit.Integer, primary_key=True)
-    codigo = dbnnit.Column(dbnnit.String(8), unique=True, nullable=False)
-    nome = dbnnit.Column(dbnnit.String(100), nullable=False)
-    carga_horaria = dbnnit.Column(dbnnit.Integer, nullable=False)
-    credito = dbnnit.Column(dbnnit.Integer, nullable=False)
-    tipo = dbnnit.Column(dbnnit.Integer, nullable=False)
+    id = Column(db.Integer, primary_key=True)
+    codigo = Column(db.String(8), unique=True, nullable=False)
+    nome = Column(db.String(100), nullable=False)
+    carga_horaria = Column(db.Integer, nullable=False)
+    credito = Column(db.Integer, nullable=False)
+    tipo = Column(db.Integer, nullable=False)
 
     def json(self):
         return {'id': self.id,
@@ -44,19 +43,20 @@ class Lecture(dbnnit.Model):
 
 
 
-class History(dbnnit.Model):
+class History(db.Model):
     __tablename__ = 'historico'
 
-    id_aluno = dbnnit.Column(dbnnit.Integer, nullable=False, primary_key=True)
-    id_disciplina = dbnnit.Column(dbnnit.Integer, nullable=False, primary_key=True)
-    status = dbnnit.Column(dbnnit.Integer, nullable=False)
-    ano = dbnnit.Column(dbnnit.Integer, nullable = False, primary_key=True)
-    semestre = dbnnit.Column(dbnnit.Integer, nullable = False, primary_key=True)
-    nota = dbnnit.Column(dbnnit.DECIMAL(5,2), nullable=False)
+    id_aluno = Column(db.Integer, db.ForeignKey(Alumni.id), nullable=False, primary_key=True)
+    id_disciplina = Column(db.Integer, db.ForeignKey(Lecture.id),nullable=False, primary_key=True)
+    status = Column(db.Integer, nullable=False)
+    ano = Column(db.Integer, nullable = False, primary_key=True)
+    semestre = Column(db.Integer, nullable = False, primary_key=True)
+    nota = Column(db.DECIMAL(5,2), nullable=False)
 
     # PROFESSOR
-    aluno = dbnnit.relationship("Alumni")
-    disciplina = dbnnit.relationship("Lecture")
+    #aluno = relationship("Alumni(id)")
+    #disciplina = relationship("Lecture")
+    #discente = Column(db.Integer, db.ForeignKey('Alumni.id'))
 
     def json(self):
         return {'id': self.id_aluno,

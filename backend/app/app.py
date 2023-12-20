@@ -1,6 +1,6 @@
 from flask import Flask
-from os import environ
-from flask_migrate import Migrate
+#from os import environ
+#from flask_migrate import Migrate
 # routes
 from app.routes.alumni_bp import blueprint as alumni_bp
 from app.routes.lecture_bp import blueprint as lecture_bp
@@ -19,17 +19,19 @@ def create_app(config_object="app.settings"): # ci env check base repo
     #app.config.from_object('config')
     app.config.from_object(config_object)
     register_extensions(app)
-    register_blueprints(app)
+    #register_blueprints(app)
 
 
     #app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_URL')
 
     # register blueprints
     #app.register_blueprint(blueprint, url_prefix='/machines')
-    #app.register_blueprint(alumni_bp, url_prefix='/alumni')
+    app.register_blueprint(alumni_bp) #, url_prefix='/alumni')
     #app.register_blueprint(lecture_bp, url_prefix='/lectures')
     #app.register_blueprint(history_bp, url_prefix='/history')
 
+    print(f'from app.py: {app.app_context()}')
+    #print(f'from app.py: {type(current_app.name)}')
     return app
 
 def register_extensions(app):

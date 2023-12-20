@@ -1,12 +1,32 @@
-from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, request, jsonify, make_response
-from app.models.machine import Alumni
+#from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, request, jsonify, make_response, current_app
+#from app.models.machine import Alumni, db
 
+#print(f'from services.alumni: {type(Alumni)}')
+#print(f'from services.alumni: {type(db.query)}')
+
+#print(f'from services.alumni: {type(current_app.name)}') print(f'from services.alumni: {type(current_app.name)}')
+'''
+from services.alumni: <class 'flask_sqlalchemy.model.DefaultMeta'>
+from services.alumni: <class 'module'>
+'''
+
+'''
+# create if does not exist
+def create_app():
+    with current_app: #app.app_context():
+        db.create_all()
+    return app
+'''
+
+#print('hmmmmmmm')
 # get all alumni
-def get_all_alumni():
+def get_all_alumni(Alumni):
     print("in services")
     try:
-        alumni = Alumni.query.all()
+        alumni = Alumni(name=Alumni)
+        print(f'from services.alumni: {type(alumni)}')
+        #alumni = Alumni.query.all()
         # returns a jsonified function inside a list comprehension lambda lingo
         return make_response(jsonify([item.json() for item in alumni]), 200)
     except Exception as e:
