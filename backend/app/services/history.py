@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request, jsonify, make_response
-#from app.app import app, db
-from app.models.machine import History
+#from app.models.machine import History
 
 db = SQLAlchemy()
 

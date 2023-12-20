@@ -1,5 +1,5 @@
 from flask import jsonify
-#from app.models.machine import db, Alumni, Lecture, History
+from app.models.machine import Lecture
 from app.services.lecture import get_all_lectures, get_lecture, update_lecture, delete_lecture
 
 def index(table):

@@ -7,6 +7,7 @@ from .extensions import db
 Column = db.Column
 relationship = db.relationship
 
+'''
 # The Mixin concept uses the dependency inversion principle to inject code into a class
 class crudMixin(object):
     """convenience mixin for crud operations"""
@@ -38,4 +39,4 @@ class crudMixin(object):
         if commit:
             return db.session.commit()
         return
-
+'''

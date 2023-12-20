@@ -21,7 +21,7 @@ def create_app():
 
 #print('hmmmmmmm')
 # get all alumni
-def get_all_alumni(Alumni):
+def get_all_alumni_v2(Alumni):
     print("in services")
     try:
         alumni = Alumni(name=Alumni)
@@ -33,6 +33,12 @@ def get_all_alumni(Alumni):
         print(f'Error: {e}')
         return make_response(jsonify({'message': 'error getting alumni'}), 500)
 
+def get_all_alumni(Alumni):
+    try:
+        users = Alumni.query.all()
+        return make_response(jsonify([user.json() for user in users]), 200)
+    except Exception:
+        return make_response(jsonify({'message': 'error getting users'}), 200)
 #
 # get alumni by id
 def get_alumni(Alumni, id):
