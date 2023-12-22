@@ -1,7 +1,7 @@
-from flask_login import UserMixin
+#from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
-
+'''
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
 
@@ -23,4 +23,4 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.id)
-
+'''
