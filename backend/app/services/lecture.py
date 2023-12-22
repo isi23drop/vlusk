@@ -1,54 +1,61 @@
-from flask import Flask, request, jsonify, make_response
-#from app.models.machine import Lecture
+from flask import request, jsonify, make_response
+
 
 # get all lectures
-#@app.route('/lectures', methods=['GET'])
-def get_all_lectures():
+def get_all_lectures(Lecture):
     try:
         lectures = Lecture.query.all()
         # returns a jsonified function inside a list comprehension lambda lingo
-        return make_response(jsonify([lectures.json() for lectures in lectures]), 200)
+        return make_response(jsonify(
+            [lecture.json() for lecture in lectures]
+            ), 200)
     except Exception as e:
-        return make_response(jsonify({'message': 'error getting lectures'}), 500)
+        return make_response(jsonify(
+            {'message': f'error [{e}] getting lectures'}
+            ), 500)
 
-#
+
 # get lecture by id
-#
-#@app.route('/lectures/<int:id>', methods=['GET'])
-def get_lecture(id):
+def get_lecture(Lecture, id):
     try:
         lecture = Lecture.query.filter_by(id=id).first()
         if lecture:
             return make_response(jsonify({'lecture': lecture.json()}), 200)
         return make_response(jsonify({'message': 'lecture not found'}), 404)
     except Exception as e:
-        return make_response(jsonify({'message': 'error getting lecture'}), 500)
+        return make_response(jsonify(
+            {'message': f'error [{e}] getting lecture'}
+            ), 500)
+
 
 # update Lecture
-#@app.route('/lectures/<int:id>', methods=['PUT'])
-def update_lecture(id):
+def update_lecture(Lecture, id):
     try:
         lecture = Lecture.query.filter_by(id=id).first()
         # check for existence of primary keys; defined in models.machine
         if lecture:
             data = request.get_json()
-            lecture.username = data['username']
-            lecture.email = data['email']
-            db.session.commit()
+            lecture.id = data['id']
+            lecture.codigo = data['codigo']
+            Lecture.session.commit()
             return make_response(jsonify({'message': 'lecture updated'}), 200)
         return make_response(jsonify({'message': 'lecture not found'}), 404)
     except Exception as e:
-        return make_response(jsonify({'message': 'error updating lecture'}), 50)
+        return make_response(jsonify(
+            {'message': f'error [{e}] updating lecture'}
+            ), 50)
+
 
 # delete Lecture
-#@app.route('/lectures/<int:id>', methods=['DELETE'])
-def delete_lecture(id):
+def delete_lecture(Lecture, id):
     try:
         lecture = Lecture.query.filter_by(id=id).first()
         if lecture:
-            db.session.delete(lecture)
-            db.session.commit()
+            Lecture.session.delete(lecture)
+            Lecture.session.commit()
             return make_response(jsonify({'message': 'lecture deleted'}), 200)
         return make_response(jsonify({'message': 'lecture not found'}), 404)
     except Exception as e:
-        return make_response(jsonify({'message': 'error deleting lecture'}), 500)
+        return make_response(jsonify(
+            {'message': f'error [{e}] deleting lecture'}
+            ), 500)

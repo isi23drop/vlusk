@@ -22,7 +22,6 @@ class Alumni(db.Model):
         return f'<Alumni {self.nome}, cpf {self.cpf}'
 
 
-
 class Lecture(db.Model):
     __tablename__ = 'disciplina'
 
@@ -35,12 +34,12 @@ class Lecture(db.Model):
 
     def json(self):
         return {'id': self.id,
-            'codigo': self.codigo,
-            'nome': self.nome
-        }
-    def __repr__(self):
-        return '<machineid %r>' % self.machineid
+                'codigo': self.codigo,
+                'nome': self.nome
+                }
 
+    def __repr__(self):
+        return f'<Lecture {self.nome}, id {self.id}'
 
 
 class History(db.Model):
@@ -49,9 +48,9 @@ class History(db.Model):
     id_aluno = Column(db.Integer, db.ForeignKey(Alumni.id), nullable=False, primary_key=True)
     id_disciplina = Column(db.Integer, db.ForeignKey(Lecture.id),nullable=False, primary_key=True)
     status = Column(db.Integer, nullable=False)
-    ano = Column(db.Integer, nullable = False, primary_key=True)
-    semestre = Column(db.Integer, nullable = False, primary_key=True)
-    nota = Column(db.DECIMAL(5,2), nullable=False)
+    ano = Column(db.Integer, nullable = False, primary_key = True)
+    semestre = Column(db.Integer, nullable = False, primary_key = True)
+    nota = Column(db.DECIMAL(5, 2), nullable=False)
 
     # PROFESSOR
     #aluno = relationship("Alumni(id)")
