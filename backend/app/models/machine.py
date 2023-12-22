@@ -1,51 +1,68 @@
-from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
-
-class Alumni(db.model):
-    __tablename__ == 'aluno'
-
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
-    cpf = db.Column(db.String(14), nullable=False)
-    arg_class = db.Column(db.DECIMAL(5, 2), nullable=False)
-    ano_entrada = db.Column(db.INT, nullable=True)
-
-    def __repr__(self):
-        return '<machineid %r>' % self.machineid
+from app.database import db, Column, relationship
+# db
 
 
+# class Alumni(db):
+class Alumni(db.Model):
+    __tablename__ = 'aluno'
 
-class Lecture(db.model):
-    __tablename__ == 'disciplina'
+    id = Column(db.Integer, primary_key=True)
+    nome = Column(db.String(100), nullable=False)
+    cpf = Column(db.String(14), nullable=False)
+    arg_class = Column(db.DECIMAL(5, 2), nullable=False)
+    ano_entrada = Column(db.INT, nullable=True)
 
-    id = db.Column(db.Integer, primary_key=True)
-    codigo = db.Column(db.String(8), unique=True, nullable=False)
-    nome = db.Column(db.String(100), nullable=False)
-    carga_horaria = db.Column(db.Integer, nullable=False)
-    credito = db.Column(db.Integer, nullable=False)
-    tipo = db.Column(db.Integer, nullable=False)
+    def json(self):
+        return {'id': self.id,
+            'nome': self.nome,
+            'cpf': self.cpf
+            }
 
     def __repr__(self):
-        return '<machineid %r>' % self.machineid
+        return f'<Alumni {self.nome}, cpf {self.cpf}'
 
 
+class Lecture(db.Model):
+    __tablename__ = 'disciplina'
 
-class History(db.model):
-    __tablename__ == 'historico'
+    id = Column(db.Integer, primary_key=True)
+    codigo = Column(db.String(8), unique=True, nullable=False)
+    nome = Column(db.String(100), nullable=False)
+    carga_horaria = Column(db.Integer, nullable=False)
+    credito = Column(db.Integer, nullable=False)
+    tipo = Column(db.Integer, nullable=False)
 
-    id_aluno = db.Column(db.Integer, nullable=False, primary_key=True)
-    id_disciplina = db.Column(db.Integer, nullable=False, primary_key=True)
-    status = db.Column(db.Integer, nullable=False)
-    ano = db.Column(db.Integer, nullable = False, primary_key=True)
-    semestre = db.Column(db.Integer, nullable = False, primary_key=True)
-    nota = db.Column(db.DECIMAL)DECIMAL(5,2) null,
+    def json(self):
+        return {'id': self.id,
+                'codigo': self.codigo,
+                'nome': self.nome
+                }
+
+    def __repr__(self):
+        return f'<Lecture {self.nome}, id {self.id}'
+
+
+class History(db.Model):
+    __tablename__ = 'historico'
+
+    id_aluno = Column(db.Integer, db.ForeignKey(Alumni.id), nullable=False, primary_key=True)
+    id_disciplina = Column(db.Integer, db.ForeignKey(Lecture.id),nullable=False, primary_key=True)
+    status = Column(db.Integer, nullable=False)
+    ano = Column(db.Integer, nullable = False, primary_key = True)
+    semestre = Column(db.Integer, nullable = False, primary_key = True)
+    nota = Column(db.DECIMAL(5, 2), nullable=False)
 
     # PROFESSOR
-    aluno = relationship("Alumni")
-    disciplina = relationship("Lecture")
+    #aluno = relationship("Alumni(id)")
+    #disciplina = relationship("Lecture")
+    #discente = Column(db.Integer, db.ForeignKey('Alumni.id'))
+
+    def json(self):
+        return {'id': self.id_aluno,
+            'id_disciplina': self.id_disciplina,
+            'ano': self.ano,
+            'semestre': self.semestre
+        }
 
     def __repr__(self):
         return '<machineid %r>' % self.machineid

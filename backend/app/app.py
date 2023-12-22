@@ -1,84 +1,42 @@
-from flask import Flask, request, jsonify, make_response
-from flask_sqlalchemy import SQLAlchemy
-from os import environ
+from flask import Flask
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_URL')
-db = SQLAlchemy(app)
+# routes
+from app.routes.alumni_bp import blueprint as alumni_bp
+from app.routes.lecture_bp import blueprint as lecture_bp
+from app.routes.history_bp import blueprint as history_bp
 
-
-class User(db.Model):
-    __tablename__ = 'users'
-    user_id = db.Column(db.Integer, primary_key=True)
-    username= db.Column(db.String(50), unique=True, nullable=False)
-    email = db.Column(db.String(80), unique=True, nullable=False)
-
-def json(self):
-    return {'id': self.id,
-            'username': self.username,
-            'email': self.email
-            }
+# extensions
+from .extensions import db
 
 
-#def create_app():
-#    with app.app_context():
-#        # init_db()
-#        db.create_all()
-#    return app
+# ci env check base repo
+def create_app(config_object="app.settings"):
+    """ create application factory """
+    app = Flask(__name__.split(".")[0])
+    app.config.from_object(config_object)
+    register_extensions(app)
+    register_blueprints(app)
+
+    # print(f'from app.py: {app.app_context()}')
+    # print(f'from app.py: {type(current_app.name)}')
+    return app
 
 
-# create a test route
-@app.route('/test', methods=['GET'])
-def test():
-    return make_response(jsonify({'message': 'test route'}), 200)
+def register_extensions(app):
+    """ register flask extensions """
+    db.init_app(app)
 
-# create a User
-@app.route('/users', methods=['GET'])
-def get_users():
-    try:
-        users = User.query.all()
-        # returns a jsonified function inside a list comprehension lambda lingo
-        return make_response(jsonify([user.json() for user in users]), 200)
-    except e:
-        return make_response(jsonify({'message': 'error getting users'}), 500)
+    return None
 
-#
-# get user by id
-#
-@app.route('/users<int:id>', methods=['GET'])
-def get_user(id):
-    try:
-        user = User.query.filter_by(id=id).first()
-        if user:
-            return make_response(jsonify({'user': user.json()}), 200)
-        return make_response(jsonify({'message': 'user not found'}), 404)
-    except e:
-        return make_response(jsonify({'message': 'error getting user'}), 500)
 
-# update User
-@app.route('/users/<int:id>', methods=['PUT'])
-def update_user(id):
-    try:
-        user = User.query.filter_by(id=id).first()
-        if user:
-            data = request.get_json()
-            user.username = data['username']
-            user.email = data['email']
-            db.session.commit()
-            return make_response(jsonify({'message': 'user updated'}), 200)
-        return make_response(jsonify({'message': 'user not found'}), 404)
-    except e:
-        return make_response(jsonify({'message': 'error updating user'}), 50)
+def register_blueprints(app):
+    """ register flask blueprints """
+    app.register_blueprint(alumni_bp)
+    app.register_blueprint(lecture_bp)
+    app.register_blueprint(history_bp)
 
-# delete User
-@app.route('/users/<int:id>', methods=['DELETE'])
-def delete_user(id):
-    try:
-        user = User.query.filter_by(id=id).first()
-        if user:
-            db.session.delete(user)
-            db.session.commit()
-            return make_response(jsonify({'message': 'user deleted'}), 200)
-        return make_response(jsonify({'message': 'user not found'}), 404)
-    except e:
-        return make_response(jsonify({'message': 'error deleting user'}), 500)
+    return None
+
+
+if __name__ == '__main__':
+    create_app()[0].run(host='127.0.0.1', port=5000, debug=True)
